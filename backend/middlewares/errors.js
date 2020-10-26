@@ -5,10 +5,12 @@ const notFound=(req,res,next)=>{
 }
 
 const errorHandler = (err,req,res,next)=>{
-    const statusCode = res.statusCode===200?500:res.statusCode;
+    console.log(err,res.statusCode);
+    var statusCode = res.statusCode===200?500:res.statusCode;
     var message=err.message;
     if (err.kind === "ObjectId") {
-		message="Requested Resource not found";
+        message="Requested Resource not found";
+        statusCode=404;
 	}
     res.status(statusCode).json({
         message,

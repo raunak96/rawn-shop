@@ -6,6 +6,7 @@ import { getOrderHistory } from '../actions/orderActions';
 import { updateUserProfile } from '../actions/userActions';
 import Loader from '../components/Loader';
 import Message from '../components/Message';
+import Meta from '../components/Meta';
 import OrderHistory from '../components/OrderHistory';
 
 const ProfilePage = () => {
@@ -49,6 +50,7 @@ const ProfilePage = () => {
 		<Row>
 			<Col md={3}>
 				<h2>User Profile</h2>
+                <Meta title={`${name} | Profile`} />
 				{message && <Message variant="danger">{message}</Message>}
 				{error && <Message variant="danger">{error}</Message>}
 				{success && <Message variant="success">Profile Successfully Updated</Message>}

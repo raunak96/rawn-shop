@@ -5,6 +5,7 @@ import { Link, useLocation } from "react-router-dom";
 import { listProducts } from "../actions/productActions";
 import Loader from "../components/Loader";
 import Message from "../components/Message";
+import Meta from "../components/Meta";
 import Paginate from "../components/Paginate";
 import Product from "../components/Product";
 import ProductCarousel from "../components/ProductCarousel";
@@ -22,6 +23,7 @@ const HomePage = () => {
     },[dispatch,keyword,page]);
 	return (
 		<Fragment>
+            <Meta />
             {
                 !keyword ? (<ProductCarousel />) : (<Link to="/" className="btn btn-light">Go Back</Link>)
             }

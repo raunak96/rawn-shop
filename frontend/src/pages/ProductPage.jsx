@@ -6,6 +6,7 @@ import { Link, useHistory, useParams } from 'react-router-dom';
 import { createProductReview, getProductDetails, reviewReset } from '../actions/productActions';
 import Loader from '../components/Loader';
 import Message from '../components/Message';
+import Meta from '../components/Meta';
 import Rating from '../components/Rating';
 
 const ProductPage = () => {
@@ -48,6 +49,7 @@ const ProductPage = () => {
             {
                 loading?<Loader /> : error ? <Message variant="danger">{error}</Message> :
                 (<>
+                    <Meta title={product.name} />
                     <Row>
                         <Col lg={5} md={4}><Image src={product.image} alt={product.name} fluid /></Col>
                         <Col lg={4} md={4}>

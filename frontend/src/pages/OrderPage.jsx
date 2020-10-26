@@ -154,12 +154,12 @@ const OrderPage = () => {
                                 )
                             }
                             {
-                                (userInfo && userInfo.isAdmin && order.isPaid && !order.isDelivered) && loadingDelivery ? (<Loader />) :(
-                                    <ListGroup.Item>
+                                loadingDelivery ? (<Loader />) :((userInfo && userInfo.isAdmin && order.isPaid && !order.isDelivered) &&
+                                    (<ListGroup.Item>
                                         <Button type='button' className='btn btn-block' onClick={deliverHandler}>
                                             Mark As Delivered
                                         </Button>
-                                    </ListGroup.Item>
+                                    </ListGroup.Item>)
                                 )
                             }
                         </ListGroup>

@@ -1,8 +1,8 @@
-import {Router} from "express";
+import express from "express";
 import { deleteUser, getUserById, getUserProfile, getUsers, loginUser, registerUser, updateProfile, updateUser } from "../controllers/user.js";
 import { isAdmin, isAuthenticated } from "../middlewares/auth.js";
 
-const router = Router();
+const router = express.Router();
 
 router.route("/")
     .post(registerUser)

@@ -1,8 +1,9 @@
-import { Router } from "express";
+import express from "express";
 import { createProduct, createProductReview, deleteProduct, getProductById, getProducts, getTopRatedProducts, updateProduct } from "../controllers/product.js";
 import {isAdmin,isAuthenticated} from "../middlewares/auth.js";
 
-const router =Router();
+const router =express.Router();
+
 
 router.route("/")
     .get(getProducts)

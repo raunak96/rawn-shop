@@ -1,8 +1,8 @@
-import {Router} from "express";
+import express from "express";
 import { addOrderItems, getOrderById, getOrderHistory, getOrders, updateDeliveredStatus, updatePaidStatus } from "../controllers/order.js";
 import { isAdmin, isAuthenticated } from "../middlewares/auth.js";
 
-const router = Router();
+const router = express.Router();
 
 router.route("/")
     .post(isAuthenticated,addOrderItems)

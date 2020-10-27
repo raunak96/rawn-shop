@@ -37,7 +37,7 @@ const OrderPage = () => {
 		};
         if(!userInfo)
             history.push("/login");
-        else if(!order || successPay || successDelivery){
+        else if(!order || successPay || successDelivery || order._id!==orderId){
             dispatch(resetOrder());
             dispatch(getOrderById(orderId));
         }else if(!order.isPaid){

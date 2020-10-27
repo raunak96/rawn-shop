@@ -1,5 +1,6 @@
 import axios from "axios";
 import orderActionTypes from "../actionTypes/orderActionTypes";
+import { logout } from "./userActions";
 const {ORDER_CREATE_REQ,ORDER_CREATE_SUCCESS,ORDER_CREATE_FAIL,
 	ORDER_DETAILS_FAIL,ORDER_DETAILS_SUCCESS,ORDER_DETAILS_REQ,
     ORDER_PAY_FAIL,ORDER_PAY_SUCCESS,ORDER_PAY_REQ,ORDER_PAY_RESET,
@@ -14,6 +15,9 @@ export const createOrder = (order) => async (dispatch, getState)=>{
         const {data} = await axios.post("/api/orders", order, config);
         dispatch({type: ORDER_CREATE_SUCCESS, payload: data});
     } catch (error) {
+        if (error.response.status === 401) {
+			dispatch(logout());
+		}
         dispatch({type: ORDER_CREATE_FAIL, payload: error.response && error.response.data.message ? error.response.data.message: error.message})
     }
 }
@@ -26,6 +30,9 @@ export const getOrderById = (id) => async(dispatch, getState)=>{
         const {data} = await axios.get(`/api/orders/${id}`, config);
         dispatch({type: ORDER_DETAILS_SUCCESS, payload: data});
     } catch (error) {
+        if (error.response.status === 401) {
+			dispatch(logout());
+		}
         dispatch({type: ORDER_DETAILS_FAIL, payload: error.response && error.response.data.message ? error.response.data.message: error.message})
     }
 }
@@ -38,6 +45,9 @@ export const getOrderHistory = () => async(dispatch,getState)=>{
         const {data} = await axios.get("/api/orders", config);
         dispatch({type: ORDER_HISTORY_SUCCESS, payload: data});
     } catch (error) {
+        if (error.response.status === 401) {
+			dispatch(logout());
+		}
         dispatch({type: ORDER_HISTORY_FAIL, payload: error.response && error.response.data.message ? error.response.data.message: error.message})
     } 
 }
@@ -49,6 +59,9 @@ export const listOrders = () => async(dispatch,getState)=>{
         const {data} = await axios.get("/api/orders/all", config);
         dispatch({type: ORDER_LIST_SUCCESS, payload: data});
     } catch (error) {
+        if (error.response.status === 401) {
+			dispatch(logout());
+		}
         dispatch({type: ORDER_LIST_FAIL, payload: error.response && error.response.data.message ? error.response.data.message: error.message})
     }
 }
@@ -62,6 +75,9 @@ export const updatePaidStatus = (id, paymentResult) =>async(dispatch,getState)=>
         dispatch({type:ORDER_PAY_SUCCESS, payload: data});
 
     } catch (error) {
+        if (error.response.status === 401) {
+			dispatch(logout());
+		}
         dispatch({type: ORDER_PAY_FAIL, payload: error.response && error.response.data.message ? error.response.data.message: error.message})
     }
 }
@@ -75,6 +91,9 @@ export const updateDeliverStatus = (id) =>async(dispatch,getState)=>{
         dispatch({type:ORDER_DELIVER_SUCCESS, payload: data});
 
     } catch (error) {
+        if (error.response.status === 401) {
+			dispatch(logout());
+		}
         dispatch({type: ORDER_DELIVER_FAIL, payload: error.response && error.response.data.message ? error.response.data.message: error.message})
     }
 }

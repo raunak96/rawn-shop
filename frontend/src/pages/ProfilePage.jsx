@@ -52,9 +52,8 @@ const ProfilePage = () => {
 				<h2>User Profile</h2>
                 <Meta title={`${name} | Profile`} />
 				{message && <Message variant="danger">{message}</Message>}
-				{error && <Message variant="danger">{error}</Message>}
 				{success && <Message variant="success">Profile Successfully Updated</Message>}
-                {loading ? <Loader />:(
+                {loading ? <Loader />: error ? (<Message variant="danger">{error}</Message>) : (
                     <Form onSubmit={handleSubmit}>
                         <Form.Group controlId="name">
                             <Form.Label>Your Name</Form.Label>

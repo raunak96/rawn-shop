@@ -45,6 +45,9 @@ export const getUserDetails = (id)=> async (dispatch,getState)=>{
         dispatch({type: USER_DETAILS_SUCCESS , payload: data});
         
     } catch (error) {
+        if(error.response.status===401){
+            dispatch(logout());
+        }
         dispatch({
 			type: USER_DETAILS_FAIL,
 			payload: error.response && error.response.data.message ? error.response.data.message : error.message
@@ -61,6 +64,9 @@ export const updateUserProfile = (user)=> async (dispatch,getState)=>{
         localStorage.setItem("userInfo", JSON.stringify(data));
 
     } catch (error) {
+        if (error.response.status === 401) {
+			dispatch(logout());
+		}
         dispatch({
 			type: USER_UPDATE_PROFILE_FAIL,
 			payload: error.response && error.response.data.message ? error.response.data.message : error.message
@@ -77,6 +83,9 @@ export const getUsers = ()=>async (dispatch,getState)=>{
         dispatch({type: USER_LIST_SUCCESS, payload: data});
 
     } catch (error) {
+        if (error.response.status === 401) {
+			dispatch(logout());
+		}
         dispatch({
 			type: USER_LIST_FAIL,
 			payload: error.response && error.response.data.message ? error.response.data.message : error.message
@@ -93,6 +102,9 @@ export const deleteUser = (id)=> async(dispatch,getState)=>{
         dispatch({type: USER_DELETE_SUCCESS});
         dispatch(getUsers());
     } catch (error) {
+        if (error.response.status === 401) {
+			dispatch(logout());
+		}
          dispatch({
 			type: USER_DELETE_FAIL,
 			payload: error.response && error.response.data.message ? error.response.data.message : error.message
@@ -110,6 +122,9 @@ export const updateUser = (id,user) => async (dispatch,getState)=>{
         setTimeout(()=> dispatch({type: USER_DETAILS_RESET}),5000);
         
     } catch (error) {
+        if (error.response.status === 401) {
+			dispatch(logout());
+		}
          dispatch({
 			type: USER_UPDATE_FAIL,
 			payload: error.response && error.response.data.message ? error.response.data.message : error.message

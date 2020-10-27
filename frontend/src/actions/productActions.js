@@ -1,5 +1,6 @@
 import axios from "axios";
 import productActionTypes from "../actionTypes/productActionTypes";
+import {logout} from "./userActions"
 
 const {PRODUCT_LIST_REQ,PRODUCT_LIST_SUCCESS,PRODUCT_LIST_FAIL,
     PRODUCT_DETAILS_REQ,PRODUCT_DETAILS_SUCCESS,PRODUCT_DETAILS_FAIL,PRODUCT_DELETE_SUCCESS,PRODUCT_DELETE_REQ,PRODUCT_DELETE_FAIL,PRODUCT_CREATE_FAIL,PRODUCT_CREATE_SUCCESS,PRODUCT_CREATE_REQ,PRODUCT_UPDATE_REQ,PRODUCT_UPDATE_SUCCESS,PRODUCT_UPDATE_FAIL, PRODUCT_CREATE_REVIEW_FAIL,PRODUCT_CREATE_REVIEW_REQ,PRODUCT_CREATE_REVIEW_SUCCESS,PRODUCT_CREATE_REVIEW_RESET,PRODUCT_TOP_REQ,PRODUCT_TOP_SUCCESS,PRODUCT_TOP_FAIL}=productActionTypes;
@@ -57,6 +58,9 @@ export const deleteProduct = (id) => async (dispatch, getState)=>{
         dispatch(listProducts());
 
     } catch (error) {
+        if (error.response.status === 401) {
+			dispatch(logout());
+		}
         dispatch({
 			type: PRODUCT_DELETE_FAIL,
 			payload: error.response && error.response.data.message ? error.response.data.message : error.message
@@ -74,6 +78,9 @@ export const createProduct = (history) => async(dispatch,getState)=>{
         history.push(`/products/${data._id}`);
 
     } catch (error) {
+        if (error.response.status === 401) {
+			dispatch(logout());
+		}
         dispatch({
 			type: PRODUCT_CREATE_FAIL,
 			payload: error.response && error.response.data.message ? error.response.data.message : error.message
@@ -91,6 +98,9 @@ export const updateProduct = (history,product,id) => async(dispatch,getState)=>{
         history.push(`/admin/productList`);
 
     } catch (error) {
+        if (error.response.status === 401) {
+			dispatch(logout());
+		}
         dispatch({
 			type: PRODUCT_UPDATE_FAIL,
 			payload: error.response && error.response.data.message ? error.response.data.message : error.message
@@ -107,6 +117,9 @@ export const createProductReview = (id, review) => async(dispatch,getState)=>{
         dispatch({type: PRODUCT_CREATE_REVIEW_SUCCESS, payload: data});
 
     } catch (error) {
+        if (error.response.status === 401) {
+			dispatch(logout());
+		}
         dispatch({
 			type: PRODUCT_CREATE_REVIEW_FAIL,
 			payload: error.response && error.response.data.message ? error.response.data.message : error.message
